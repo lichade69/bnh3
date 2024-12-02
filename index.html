@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Richard Yang">
+    <title>Bear Ninja Hunter</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <h1>Bear Ninja Hunter</h1>
+    <div>
+        hi <span id="playerName"></span>, you chose <span id="playerChoice"></span>
+    </div>
+    <div>
+        computer chose <span id="computerChoice"></span>
+    </div>
+    <div>
+        game result: <span id="gameResult"></span>
+    </div>
+    <script>
+        // Array to store game choice options
+        const choices = ['Bear', 'Ninja', 'Hunter'];
+
+        // Get the name of the player
+        let name = prompt('Welcome to Bear Ninja Hunter! Please enter your name to get started:');
+        // Greet the player
+        alert('Hi ' + name + ', let\'s play!!');
+
+        // Display the player's name
+        document.getElementById('playerName').innerHTML = name;
+
+        while (true) {
+            // Get the player's choice
+            let playerChoice = prompt('Who are you: Bear, Ninja, or Hunter?');
+            if (!playerChoice) {
+                alert('Game cancelled. Please refresh the page to play again.');
+                break;
+            }
+
+            // Standardize player input to forced case
+            playerChoice = playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1).toLowerCase();
+
+            // Validate player choice
+            if (!choices.includes(playerChoice)) {
+                alert('Invalid choice! Please enter Bear, Ninja, or Hunter.');
+                break;
+            }
+
+            // Display the player's choice
+            document.getElementById('playerChoice').innerHTML = playerChoice;
+
+            // Get the computer's choice
+            const randomIndex = Math.floor(Math.random() * choices.length);
+            let computerChoice = choices[randomIndex];
+
+            // Display the computer's choice
+            document.getElementById('computerChoice').innerHTML = computerChoice;
+
+            // Countdown from 3 to 0
+            for (let i = 3; i >= 0; i--) {
+                alert(i);
+                console.log(i);
+            }
+
+            // Determine the game result
+            let gameStatus;
+            if (playerChoice === computerChoice) {
+                gameStatus = 'Tie';
+            } else if (
+                playerChoice === 'Bear' && computerChoice === 'Ninja' ||
+                playerChoice === 'Ninja' && computerChoice === 'Hunter' ||
+                playerChoice === 'Hunter' && computerChoice === 'Bear'
+            ) {
+                gameStatus = 'Win';
+            }
+            else {
+                gameStatus = 'Lose';
+            }
+
+            // Display the game result
+            alert('You ' + gameStatus + '!');
+            document.getElementById('gameResult').innerHTML = `You ${gameStatus}`;
+
+            // Ask if the player wants to play again
+            let playAgain = prompt(name + ', would you like to play again, Yes or No?');
+            if (!playAgain || playAgain.toLowerCase() !== 'yes') {
+                alert('Thanks for playing! Refresh the page to play again.');
+                break;
+            }
+        }
+    </script>
+</body>
+
+</html>
